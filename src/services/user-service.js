@@ -43,5 +43,26 @@ class UserService{
             throw error;
         }
     }
+    async signIn(email,plainPassword){
+        try{
+              
+            //fetch the user using the email id
+            const user = await this.userRepository.getByEmail(email);
+
+            //compare incoming password with the stored password
+            const passwordMatch = this.checkPassword(plainPassword,user.password);
+            if(!passwordMatch)
+            {
+                console.log("Password does not match");
+                throw {error:'incorrect password'};
+            }
+            //  if password match create a new jwt token
+            const newJWT = this.createToken({email:user.email,id:user.id});
+            return newJWT;
+        }catch(error){
+            console.log("something went wrong in the service layer");
+            throw error;
+        }
+    }
 }
 module.exports = UserService;
