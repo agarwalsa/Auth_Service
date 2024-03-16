@@ -7,4 +7,5 @@ router.post('/signup',AuthRequestValidators.validateUserAuth
 router.post('/signin',AuthRequestValidators.validateUserAuth
 ,UserController.signIn);
 router.get('/isAuthenticated',UserController.isAuthenticated);
+router.get('/isAdmin',AuthRequestValidators.validateisAdmin,UserController.isAdmin);
 module.exports = router;
