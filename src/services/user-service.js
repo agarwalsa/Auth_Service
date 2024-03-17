@@ -12,6 +12,11 @@ class UserService{
               const user = this.userRepository.create(data);
               return user;
         }catch(error){
+            if(error.name == 'SequelizeValidationError')
+            {
+                
+                throw error;
+            }
             console.log("something went wrong in the service layer");
             throw error;
         }

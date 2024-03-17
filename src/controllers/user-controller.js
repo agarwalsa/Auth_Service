@@ -19,11 +19,11 @@ const create = async(req,res) => {
             });
     }catch(error){
         console.log(error);
-        return res.status(500).json({
-            message:"something went wrong here",
+        return res.status(error.statusCode).json({
+            message:error.message,
             data:{},
             success:false,
-            err:error
+            err:error.explanation
         })
     }
 }
@@ -69,11 +69,10 @@ const isAuthenticated = async(req,res) => {
 }
 const isAdmin = async(req,res) => {
     try{
-          
         const response = await userService.isAdmin(req.body.userId);
         return res.status(200).json({
             data:response,
-            message:"user is predicted wheather he is an admin or not",
+            message:'user is predicted wheather he is an admin or not',
             success:true,
             err:{}
         })
